@@ -135,11 +135,11 @@ function showMonitoringParametersOfNode(nodeId){
 	$("#settingsBlock").trigger("create");
 	$( "#myPopupDiv" ).popup( "open" );
 	
-	//Global attibute of app
+	//Global attribute of app
 	 loopPolingParametersOfNode = setInterval(function () {
 		
 		var request2Server = {
-			node2monitor : nodeId , 
+			node2monitor : parseInt( nodeId ) , 
 			action : "status"
 		};
 		
@@ -320,13 +320,13 @@ function modifyConnection(id, action) {
 	}
 	
 	var update2Server = {
-		from : linkToModify.source.id, 
-		to : linkToModify.target.id ,
+		from : parseInt( linkToModify.source.id ), 
+		to : parseInt( linkToModify.target.id ) ,
 		protocol : linkToModify.protocol, 
-		bitRate : linkToModify.bitRate, 
-		startTime : linkToModify.startTime , 
-		stopTime : linkToModify.stopTime, 
-		delay : linkToModify.delay , 
+		bitRate : parseInt( linkToModify.bitRate ), 
+		startTime : parseInt( linkToModify.startTime ) , 
+		stopTime : parseInt( linkToModify.stopTime ), 
+		delay : parseInt( linkToModify.delay ) , 
 		action : action2post
 	};
 	
