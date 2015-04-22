@@ -1,0 +1,211 @@
+<!-- 
+Copyright (c) 2015, INSYEN
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this 
+list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation and/or
+ other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+
+ -->
+
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GUI for DTN nodes</title>
+	
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/GUI_DTN_Nodes.min.css" />
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.1.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/timeline/timeline-theme.css">	
+
+</head>
+<body>
+	<!-- loading page: #one -->
+	<div data-role="page" id="one">	
+		<div data-role="header">
+			<h1>sphere</h1>
+		</div><!-- /header -->	
+		<div data-role="content" >
+			<div class="ui-grid-a">
+				<img style="width:100%" src="css/images/datasphereWithLogo.jpg">			
+			</div><!-- /grid-a -->			
+		</div><!-- /content -->		
+	</div><!-- /page one -->
+
+
+	<div data-role="page" data-theme="a" id="MainPage">
+		<div data-role="header" data-position="fixed">							
+			  <div class="ui-grid-d" >
+			    <div class="ui-block-a"><a href="#nav-panel" data-role="button" ><img src="css/images/list_36x36.png" alt="lists" class="ui-li-icon ui-corner-none "> </a></div>
+			    <div class="ui-block-b"></div>
+			    <div class="ui-block-c">	</div>
+			    <div class="ui-block-d"></div>
+			    <div class="ui-block-e"><a href="http://www.insyen.de" data-role="button" ><img src="css/images/insyen_logo_36x35.png" alt="lists" class="ui-li-icon ui-corner-none "></a></div> 
+ 			  </div>
+		</div><!-- /header -->
+			
+		<div data-role="content" data-theme="a">
+			<div class="ui-grid-a"><div id="mytimeline"></div></div><!-- /grid-a -->		
+			<div id="settings-and-graph" class="ui-grid-a">
+				<div class="ui-block-a" id="settingsBlock">	
+					<br>
+					<h2 >Mini guide</h2>
+					<h5 >click on a Network Configuration of the time-line to see the nodes & links at that time frame</h5>				
+					<h5 >Should you want to add new Nodes, just click on the canvas</h5>
+					<h5 >Choose a Node of the Graph to check its links</h5>					
+					<h5 >Choose a Node or link and then press "Delete" on your keyboard if you want to delete the Node/Link </h5>					
+					<h5 >Click on a Node + press "Ctrl" on your keyboard to grab a Node </h5>									
+				</div><!-- /ui-block-a -->
+				<div class="ui-block-b" id="graph">
+					<div  ></div>
+				</div>				
+			</div><!-- /grid-a -->		
+		</div> 	<!-- /END content -->	
+		
+		<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+			<ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+				<li onclick="saveConfig2File();" >
+					<a href="#">Save Configuration </a>
+				</li>
+				<li >
+					<a href="#creditsPage">Developers </a>
+				</li>
+				<li >
+					<a href="#installationPage">Installation </a>
+				</li>	
+				<li data-icon="delete" style="background-color:#111;">
+					<a href="#" data-rel="close">Close menu</a>
+				</li>			
+			</ul>
+			<!-- panel content goes here -->
+		</div><!-- /panel -->		
+	</div><!-- /END Page -->	
+
+
+	<!-- Start of second page -->
+	<div data-role="page" id="installationPage">	
+		<div data-role="header">
+			<div class="ui-grid-d" >
+			    <div class="ui-block-a">
+			    	<a href="#MainPage" data-role="button" ><img src="css/images/arrow-left_22x36.png" alt="lists" class="ui-li-icon ui-corner-none ">	</a>		    
+			    </div>
+			    <div class="ui-block-b"></div>
+			    <div class="ui-block-c">	<br><h1>Installation Guides</h1></div>
+			    <div class="ui-block-d"></div>
+			    <div class="ui-block-e"><a href="http://www.insyen.de" data-role="button" ><img src="css/images/insyen_logo_36x35.png" alt="lists" class="ui-li-icon ui-corner-none "></a></div>
+			</div>
+		</div><!-- /END header -->	
+		
+		<div role="main" class="ui-content">
+			<h2>Platforms</h2>
+			<h3>Safari</h3>		
+				<p>Enable the develop menu using the preferences panel, under Advanced -> "Show develop menu in menu bar"</p>
+				<p>Then from the safari "Develop" menu, select "Disable local file restrictions", it is also worth noting safari has some odd behaviour with caches, so it is advisable to use the "Disable caches" option in the same menu; if you are editing & debugging using safari.</p>
+			<h3>Chrome</h3>
+				<p>Close all running chrome instances first. Then start Chrome executable with a command line flag:		</p>
+				<p>chrome --allow-file-access-from-files</p>	
+			<h3>Firefox</h3>
+				<p>Go to about:config</p>
+				<p>Find security.fileuri.strict_origin_policy parameter</p>
+				<p>Set it to false</p>	
+				<br>
+			<h3>Theme of the Timeline</h3>
+			<div id="themeswitcher"></div>
+			<br><br><br><br><br><br><br><br><br><br><br>				    
+		</div><!-- /content -->	
+		
+	</div><!-- /page -->		
+	
+	<div data-role="page" id="creditsPage">	
+		<div data-role="header">
+			<div class="ui-grid-d" >
+			    <div class="ui-block-a">
+			    	<a href="#MainPage" data-role="button" ><img src="css/images/arrow-left_22x36.png" alt="lists" class="ui-li-icon ui-corner-none "></a>			    
+			    </div>
+			    <div class="ui-block-b"></div>
+			    <div class="ui-block-c"></div>
+			    <div class="ui-block-d"></div>
+			    <div class="ui-block-e"><a href="http://www.insyen.de" data-role="button" ><img src="css/images/insyen_logo_36x35.png" alt="lists" class="ui-li-icon ui-corner-none "></a></div>
+			</div>
+		</div><!-- /END header -->			
+	
+		<div role="main" class="ui-content">		
+			<div id="content-wrapper" class="clearfix row">
+				<div class="content-full twelve columns full-width">
+					<div id="banner-secondary" class="large-banner entry-header">
+						<h1 class="entry-title">Development Team</h1>
+						<p>DTN monitor project is ran by a distributed team of volunteers that all want to see DTN become an amazing tool for the Space industry.</p>
+					</div>
+					<div id="content">										
+						<h1 class="block">Members</h1>
+						<ul class="block-grid mobile three-up">			
+							<li>
+								<img src="css/images/marco.png" style="width : 300px; " alt="">
+								<h2></h2>
+								<h2>Marco Vereda Manchego</h2>
+								<h3>Front-end Development Manager</h3>
+								<p>Marco is the developer of this web tool, he is a multidisciplinary Engineer who loves to make machines work. JAVA, C++, Arduino and JavaScript is part of his day by day life.</p>
+							</li>
+							<li>
+								<img src="css/images/jens.png" style="width : 300px; alt="">
+								<h2></h2>
+								<h2>Jens Janssen</h2>
+								<h3>Project manager</h3>
+								<p>Jens is a long-time contributor to DTN, providing extensive support......... on the TBC  </p>
+							</li>						
+							<li>
+								<img src="css/images/jeremy.png" style="width : 300px;" alt="">
+								<h2></h2>
+								<h2>Jeremy Pierce-Mayer</h2>
+								<h3>Back-end Development Manager</h3>
+								<p>Jeremy works daily to help drive the DTN project toward its mission to make the open DTN accessible to everyone.....TBC</p>
+							</li>
+						</ul>
+					</div>			
+				</div>
+			</div>
+		</div><!-- /content -->	
+	</div><!-- /page -->	
+	
+	
+	<script src="js/jquery-1.11.1.min.js"></script>		
+	<script src="js/timeline/lib/jquery-ui.js"></script>
+	<script src="js/timeline/lib/jquery.themeswitcher.js"></script>
+	<script src="js/jquery.mobile-1.4.1.min.js"></script>	
+	
+	<script src="js/timeline/timeline.js"></script> 
+	<script src="js/d3.v3.min.js"></script>
+
+
+
+	<script src="js/socket.io-1.0.6.js"></script>
+	<script src="js/File.js"></script>
+	<script src="config/config.js"></script>
+	<script src="js/InterfaceTimeLine.js"></script>
+	<script src="js/Interface3D.js"></script>
+	
+	<script src="js/app.js"></script>
+
+</body>
+</html>
