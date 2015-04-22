@@ -105,8 +105,14 @@ var InterfaceTimeLine = (function() {
 	var onrangechanged = function() {
 		var rangeOfTimeLine = timeline.getVisibleChartRange();
 		
+		var request2send = { 
+			startTime : rangeOfTimeLine.start.getTime() / 1000 , 
+			stopTime : rangeOfTimeLine.end.getTime() / 1000, 
+			action: "update"
+		};
+		
 		if (config.clientsSyncEnabled == true){
-			socket.emit('syncRequestFromClient', JSON.stringify({ startTime : rangeOfTimeLine.start.getTime() , stopTime : rangeOfTimeLine.end.getTime(), action: "update"}));
+			socket.emit('syncRequestFromClient', JSON.stringify(request2send));
 		}else{
 			var updateXHR = $.ajax({
 		        url: 'http://' + config.ip + ':' + config.port,
@@ -115,7 +121,7 @@ var InterfaceTimeLine = (function() {
 		            xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 		            xhr.setRequestHeader("Accept","application/json;");
 		        },
-		        data:  JSON.stringify({ startTime : rangeOfTimeLine.start.getTime() , stopTime : rangeOfTimeLine.end.getTime(), action: "update"}) ,
+		        data:  JSON.stringify( request2send ) ,
 		        async: false, 
 				cache: false 
 			});
@@ -129,8 +135,8 @@ var InterfaceTimeLine = (function() {
 						"idNodeDestination": 	parseInt(link.to),
 						"protocolOfLink":		link.protocol.toUpperCase(),
 						"bitRateOfLink":		parseInt(link.bitRate),
-						"startTime": 			parseInt(link.startTime),  
-						"endTime": 				parseInt(link.stopTime),
+						"startTime": 			parseInt(link.startTime) * 1000,  
+						"endTime": 				parseInt(link.stopTime) * 1000,
 						"delayOfLink": 			parseInt(link.delay)
 					};	
 					

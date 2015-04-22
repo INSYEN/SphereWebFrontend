@@ -324,8 +324,8 @@ function modifyConnection(id, action) {
 		to : parseInt( linkToModify.target.id ) ,
 		protocol : linkToModify.protocol, 
 		bitRate : parseInt( linkToModify.bitRate ), 
-		startTime : parseInt( linkToModify.startTime ) , 
-		stopTime : parseInt( linkToModify.stopTime ), 
+		startTime : parseInt( linkToModify.startTime ) / 1000 , 
+		stopTime : parseInt( linkToModify.stopTime ) / 1000, 
 		delay : parseInt( linkToModify.delay ) , 
 		action : action2post
 	};
