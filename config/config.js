@@ -32,6 +32,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 	this.ip		=	"127.0.0.1";		
 	this.port	=	"8090";	
 	this.clientsSyncEnabled = false;
+	this.period2pollStatusOfNodes = 1000; // 1000 miliseconds
+	this.period2pollParametersOfNode = 1000;
 	
 	
 }//END CLASS File

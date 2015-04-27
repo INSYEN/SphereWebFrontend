@@ -86,6 +86,10 @@ var overlapingType = { "none" : 0 , "case_A" : 1 , "case_B": 2 , "case_C": 3, "c
 // handlers of the pooling for parameter of a Node
 var loopPolingParametersOfNode;
 
+//handlers of the pooling for parameter of a Node
+var loopPollingOfNodesStatus;
+
+
 /***********************************************************************************************
  * *********************************************************************************************
  * **************			CLASS METHODS							****************************
@@ -177,7 +181,7 @@ function showMonitoringParametersOfNode(nodeId){
 			console.log("DEBUG ::: showMonitoringParametersOfNode ::: updateXHR.fail");			
 		});
 		
-	}, 1000); //polls every 1 seconds
+	}, this.period2pollParametersOfNode); //polls every 1 seconds
 	
 	$("#myPopupDiv").bind({
 		popupafterclose: function(event, ui) {
@@ -498,6 +502,70 @@ function addNewNode(configurationIndex){
 
 	
 }
+
+function modifyNode( NodeNumber , status ){
+	
+	nodes.map(function(n) {
+		
+		if (n.id == NodeNumber){
+			
+			if (status == "valid")
+				n.color = "dodgerblue";
+			if (status == "invalid")
+				n.color = "red";
+			
+		}
+		
+	});	
+	
+}
+
+function checkStatusOfNodes (){
+	
+	//Global attribute of app
+	loopPollingOfNodesStatus = setInterval(function () {
+		
+		var nodes2askStatus = [];
+		
+		nodes.map(function(n) {	
+			nodes2askStatus.push(n.id);
+		});
+		
+		var request2Server = {
+			nodes :  nodes2askStatus, 
+			action : "updateNode"
+		};
+		
+		var requestXHR = $.ajax({
+	       url: 'http://' + config.ip + ':' + config.port,
+	       type: 'POST',
+	       beforeSend: function(xhr) {
+	           xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
+	           xhr.setRequestHeader("Accept","application/json;");
+	       },
+	       data:  JSON.stringify(request2Server) ,
+	       async: true, 
+		   cache: false 
+		});
+
+		requestXHR.done(function(result){
+					
+			for (var key in result.nodeStatus) {				
+				modifyNode( key, result.nodeStatus[key] );				
+			}
+			
+			Interface3D.restart();
+			
+		});
+		
+		requestXHR.fail(function(jqXHR, textStatus, errorString){					
+			console.log("DEBUG ::: checkStatusOfNodes ::: updateXHR.fail");			
+		});
+		
+	}, config.period2pollStatusOfNodes); //polls every 1 seconds	
+	
+}
+
 
 
 function copyConfiguration(configurationIndex){	
@@ -1117,6 +1185,10 @@ InterfaceTimeLine.init();
 
 //load objects from the data of the File
 // inputNetworkSetup.LoadDTNSetup();
+
+//starts with polling the DTN asking for the status of each Node
+checkStatusOfNodes();
+
 
 
 
