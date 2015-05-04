@@ -528,7 +528,7 @@ function checkStatusOfNodes (){
 		var nodes2askStatus = [];
 		
 		nodes.map(function(n) {	
-			nodes2askStatus.push(n.id);
+			nodes2askStatus.push( parseInt(n.id) );
 		});
 		
 		var request2Server = {
