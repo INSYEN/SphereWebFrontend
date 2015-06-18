@@ -213,39 +213,45 @@ function displaySelectedNode() {
 }
 
 function showConnection2NodeOnGUI(connection){
+	
 	var checkedButtonTCP = "";
 	var checkedButtonUDP = "";
-	if (connection.protocol.toUpperCase() =="TCP"){
-		checkedButtonTCP = "checked";
-		checkedButtonUDP = "";
-	}else{
-		checkedButtonTCP = "";
-		checkedButtonUDP = "checked";
-	}
-	var html2insert = "	<div data-role='collapsible' id='"+ connection.linkId + "_collapsible' data-theme='a' data-content-theme='a'>" +
-			"					   	<h1>Connection to Node: "+ connection.toNodeWithId + "</h1>" +
-			"						<div data-role='fieldcontain'>" +
-			"						    <fieldset data-role='controlgroup'>" +
-			"						    	<legend>Choose a protocol:</legend>" +
-			"						    		<label for='TCP'>TCP</label>" +
-			"						         	<input type='radio' name='"+ connection.linkId + "_radio-choice-1' id='TCP' value='TCP' " + checkedButtonTCP + " ></input>" +
-			"						         	<label for='UDP'>UDP</label>" +
-			"						         	<input type='radio' name='"+ connection.linkId + "_radio-choice-1' id='UDP' value='UDP' " + checkedButtonUDP + " ></input>" +
-			"						    </fieldset>" +
-			"						</div>" +
-			"						<div data-role='fieldcontain'>" +
-			"						    <label for='BitRate'>BitRate:</label>" +
-			"						    <input type='number' name='BitRate' id='"+ connection.linkId + "_BitRate' value='"+ connection.bitRate  +"' onfocus='Interface3D.resetSelectedNode()' />" +
-			"						</div>" +
-			"						<div data-role='fieldcontain'>" +
-			"				         <label for='delayTime'>delay in seconds:</label>" +
-			"				         <input type='number' name='delayTime' id='"+ connection.linkId + "_delayTime' value='"+ connection.delay  +"' onfocus='Interface3D.resetSelectedNode()' />" +
-			"						</div>" +
-			"						<div data-role='fieldcontain'>" +
-			"				         <input type='button' value='Modify connection' onclick='modifyConnection("+ connection.linkId + ", \"modifiedOnSettingsBlock\" );'/> "+
-			"						</div>" +				
-			"					</div><!-- /collapsible -->";
+	var checkedButtonLTP = "";
 	
+	if (connection.protocol.toUpperCase() =="TCP"){
+		checkedButtonTCP = "checked"; checkedButtonUDP = ""; checkedButtonLTP = "";
+	}if (connection.protocol.toUpperCase() =="UDP"){
+		checkedButtonTCP = "";	checkedButtonUDP = "checked"; checkedButtonLTP = "";
+	}if (connection.protocol.toUpperCase() == "LTP"){
+		checkedButtonTCP = "";	checkedButtonUDP = ""; checkedButtonLTP = "checked";
+	}	
+	
+	var html2insert = "	<div data-role='collapsible' id='"+ connection.linkId + "_collapsible' data-theme='a' data-content-theme='a'>" +
+	"					   	<h1>Connection to Node: "+ connection.toNodeWithId + "</h1>" +
+	"						<div data-role='fieldcontain'>" +
+	"						    <fieldset data-role='controlgroup'>" +
+	"						    	<legend>Choose a protocol:</legend>" +
+	"						    		<label for='TCP'>TCP</label>" +
+	"						         	<input type='radio' name='"+ connection.linkId + "_radio-choice-1' id='TCP' value='TCP' " + checkedButtonTCP + " ></input>" +
+	"						         	<label for='UDP'>UDP</label>" +
+	"						         	<input type='radio' name='"+ connection.linkId + "_radio-choice-1' id='UDP' value='UDP' " + checkedButtonUDP + " ></input>" +
+	"						         	<label for='LTP'>LTP</label>" +
+	"						         	<input type='radio' name='"+ connection.linkId + "_radio-choice-1' id='LTP' value='LTP' " + checkedButtonLTP + " ></input>" +
+	"						    </fieldset>" +
+	"						</div>" +
+	"						<div data-role='fieldcontain'>" +
+	"						    <label for='BitRate'>BitRate:</label>" +
+	"						    <input type='number' name='BitRate' id='"+ connection.linkId + "_BitRate' value='"+ connection.bitRate  +"' onfocus='Interface3D.resetSelectedNode()' />" +
+	"						</div>" +
+	"						<div data-role='fieldcontain'>" +
+	"				         <label for='delayTime'>delay in seconds:</label>" +
+	"				         <input type='number' name='delayTime' id='"+ connection.linkId + "_delayTime' value='"+ connection.delay  +"' onfocus='Interface3D.resetSelectedNode()' />" +
+	"						</div>" +
+	"						<div data-role='fieldcontain'>" +
+	"				         <input type='button' value='Modify connection' onclick='modifyConnection("+ connection.linkId + ", \"modifiedOnSettingsBlock\" );'/> "+
+	"						</div>" +				
+	"					</div><!-- /collapsible -->";
+
 	$("#settingsBlock").append(html2insert);
 	$("#settingsBlock").trigger("create");	
 
@@ -265,13 +271,13 @@ function modifyConnection(id, action) {
 
 		//create new link
 		var newlink = {
-				id : ++lastLinkId, source: linkToModify.source, target: linkToModify.target, left: false, right: false, 
-				protocol:  $('input[name="' + id + "_radio-choice-1" + '"]:checked').val() , 
-				bitRate : document.getElementById(id + "_BitRate").value, 
-				startTime : linkToModify.startTime, 
-				stopTime : linkToModify.stopTime, 
-				delay : document.getElementById(id + "_delayTime").value, 
-				onlineInConfigurationWithID : linkToModify.onlineInConfigurationWithID
+			id : ++lastLinkId, source: linkToModify.source, target: linkToModify.target, left: false, right: false, 
+			protocol:  $('input[name="' + id + "_radio-choice-1" + '"]:checked').val() , 
+			bitRate : document.getElementById(id + "_BitRate").value, 
+			startTime : linkToModify.startTime, 
+			stopTime : linkToModify.stopTime, 
+			delay : document.getElementById(id + "_delayTime").value, 
+			onlineInConfigurationWithID : linkToModify.onlineInConfigurationWithID
 		};		
 		//delete old		
 		modifyConnection(linkToModify.id, "deleteOnTimeLine"); 
