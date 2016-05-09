@@ -365,7 +365,7 @@ function modifyConnection(id, action) {
 			}
 		});	
 		updateXHR.fail(function(jqXHR, textStatus, errorString){		
-			$("#settingsBlock").append('<div id="error_connection" data-role="popup"> <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>	<p><br></p> <p> ERROR!!! There is no connection to server</p></div>');
+			$("#settingsBlock").append('<div id="error_connection" data-role="popup"> <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>	<p><br></p> <p> ERROR!!! No protocol found on server.</p></div>');
 			$("#settingsBlock").trigger("create");
 			$( "#error_connection" ).popup( "open" );
 		});
